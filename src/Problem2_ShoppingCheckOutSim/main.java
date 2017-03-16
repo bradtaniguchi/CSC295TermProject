@@ -2,7 +2,8 @@ package Problem2_ShoppingCheckOutSim;
 
 /**
  *
- * @author brad
+ * @author Bradley Taniguchi
+ * 
  */
 public class main {
 
