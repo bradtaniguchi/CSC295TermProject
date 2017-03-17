@@ -1,8 +1,5 @@
 package Problem1_CalendarDesign;
 
-import java.time.DayOfWeek;
-import java.util.Calendar;
-
 /**
  *
  * @author brad
@@ -16,7 +13,11 @@ public class main {
         } else {
             year = Integer.parseInt(args[0]);
             System.out.println("Date parsed: " + year);
+            for(Month month : Month.values()) {
+                System.out.println(month);
+                MonthBuilder monthBuild = new MonthBuilder(month, year);
+                System.out.println(monthBuild);
+            }
         }
     }
-
 }
