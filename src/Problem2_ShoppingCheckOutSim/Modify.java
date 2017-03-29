@@ -4,18 +4,26 @@
  * and open the template in the editor.
  */
 package Problem2_ShoppingCheckOutSim;
+import Problem2_ShoppingCheckOutSim.Models.User;
 
 /**
  *
  * @author brad
  */
 public class Modify extends javax.swing.JFrame {
-
-    /**
-     * Creates new form Checkout
-     */
+    private User user;
+    
     public Modify() {
+        this.user = new User();
+        /*create the components on the page*/
         initComponents();
+        
+    }    
+    public Modify(User user) {
+        this.user = user;
+        initComponents();
+        /*we already have a user, so don't */
+        this.buttonSearch.setVisible(false);
     }
 
     /**
@@ -49,6 +57,7 @@ public class Modify extends javax.swing.JFrame {
         passVisa = new javax.swing.JPasswordField();
         buttonCancel = new javax.swing.JButton();
         buttonSubmit = new javax.swing.JButton();
+        buttonSearch = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -66,6 +75,12 @@ public class Modify extends javax.swing.JFrame {
         radioMrs.setText("Mrs");
 
         labelFirstName.setText("First Name");
+
+        textFirstName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textFirstNameActionPerformed(evt);
+            }
+        });
 
         labelLastName.setText("Last Name");
 
@@ -117,6 +132,8 @@ public class Modify extends javax.swing.JFrame {
 
         buttonSubmit.setText("Submit");
 
+        buttonSearch.setText("Search");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -148,7 +165,9 @@ public class Modify extends javax.swing.JFrame {
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addGap(52, 52, 52)
                             .addComponent(buttonCancel)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(buttonSearch)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                             .addComponent(buttonSubmit))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -210,7 +229,9 @@ public class Modify extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(buttonCancel)
-                    .addComponent(buttonSubmit))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(buttonSubmit)
+                        .addComponent(buttonSearch)))
                 .addContainerGap(46, Short.MAX_VALUE))
         );
 
@@ -240,6 +261,10 @@ public class Modify extends javax.swing.JFrame {
     private void textPostalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textPostalActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textPostalActionPerformed
+
+    private void textFirstNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFirstNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textFirstNameActionPerformed
 
     /**
      * @param args the command line arguments
@@ -279,6 +304,7 @@ public class Modify extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCancel;
+    private javax.swing.JButton buttonSearch;
     private javax.swing.JButton buttonSubmit;
     private javax.swing.JComboBox<String> dropdownState;
     private javax.swing.JLabel jLabel1;
