@@ -4,7 +4,13 @@
  * and open the template in the editor.
  */
 package Problem2_ShoppingCheckOutSim;
+import Problem2_ShoppingCheckOutSim.Models.Item;
+import Problem2_ShoppingCheckOutSim.Models.Order;
+import Problem2_ShoppingCheckOutSim.Models.State;
 import Problem2_ShoppingCheckOutSim.Models.User;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 
 /**
  *
@@ -12,20 +18,34 @@ import Problem2_ShoppingCheckOutSim.Models.User;
  */
 public class Modify extends javax.swing.JFrame {
     private User user;
+    private List<Item> items;
+    private List<Order> orders; //list of previous orders.
     
+    /*this shouldn't be called except testing purposes!*/
     public Modify() {
         this.user = new User();
-        /*create the components on the page*/
+        this.items = new ArrayList<>();
+        this.orders = null;
         initComponents();
-        
-    }    
-    public Modify(User user) {
-        this.user = user;
+    }
+    /*constructor for when we open the modify*/
+    public Modify(Order order) {
+        this.user = order.getUser();
+        this.items = order.getItems();
+        this.orders = null;
         initComponents();
-        /*we already have a user, so don't */
+        /*we already have a user, so don't show the button search.*/
         this.buttonSearch.setVisible(false);
     }
-
+    /*constructor for when we first open modify*/
+    public Modify(List<Item> items) {
+        this.user = new User();
+        this.items = items;
+        this.orders = orders;
+        /*create the components on the page*/
+        initComponents();
+        this.buttonSearch.setVisible(true);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -116,7 +136,7 @@ public class Modify extends javax.swing.JFrame {
 
         labelState.setText("State");
 
-        dropdownState.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        dropdownState.setModel(new DefaultComboBoxModel(State.values()));
 
         labelPostal.setText("Postal");
 
@@ -131,8 +151,18 @@ public class Modify extends javax.swing.JFrame {
         buttonCancel.setText("Cancel");
 
         buttonSubmit.setText("Submit");
+        buttonSubmit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSubmitActionPerformed(evt);
+            }
+        });
 
         buttonSearch.setText("Search");
+        buttonSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSearchActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -266,6 +296,26 @@ public class Modify extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_textFirstNameActionPerformed
 
+    private void buttonSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSubmitActionPerformed
+        this.user.setFirstName(this.textFirstName.getText());
+        this.user.setLastName(this.textLastName.getText());
+        this.user.setAddress1(this.textAddress.getText());
+        this.user.setAddress2(this.textAddress2.getText());
+        this.user.setCity(this.textCity.getText());
+        this.user.setState((State) this.dropdownState.getModel().getSelectedItem());
+        this.user.setPostal(Integer.parseInt(this.textPostal.getText()));
+        
+        /*update the order object*/
+        
+        /*open the search window, and pass it the order object*/
+        //SearchWindow searchWindow = new SearchWindow(this.user);
+    }//GEN-LAST:event_buttonSubmitActionPerformed
+
+    private void buttonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSearchActionPerformed
+        System.out.println("Opening search with orders array");
+        SearchWindow mySearchWindow = new SearchWindow(this.orders);
+    }//GEN-LAST:event_buttonSearchActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -306,7 +356,7 @@ public class Modify extends javax.swing.JFrame {
     private javax.swing.JButton buttonCancel;
     private javax.swing.JButton buttonSearch;
     private javax.swing.JButton buttonSubmit;
-    private javax.swing.JComboBox<String> dropdownState;
+    private javax.swing.JComboBox<State> dropdownState;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel labelAddress1;

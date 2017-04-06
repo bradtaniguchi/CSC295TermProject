@@ -8,8 +8,9 @@ package Problem2_ShoppingCheckOutSim;
 public class main {
     public static void main(String args[]) {
         System.out.println("Starting shopping cart sim");
-        Cart myCart = new Cart();
-        myCart.setVisible(true);
+        Modify myModify = new Modify();
+        
+        myModify.setVisible(true);
     }
 
 }

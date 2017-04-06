@@ -5,6 +5,8 @@
  */
 package Problem2_ShoppingCheckOutSim;
 
+import Problem2_ShoppingCheckOutSim.Models.Item;
+import Problem2_ShoppingCheckOutSim.Models.Order;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JTextField;
@@ -21,7 +23,9 @@ public class Cart extends javax.swing.JFrame {
     private final double shakeCost = 3.00;
     private final double dblChsCost = 3.50;
     
-    private List<JTextField> inputFields = new ArrayList<>();
+    private final List<JTextField> inputFields = new ArrayList<>();
+    private List<Item> items = new ArrayList<>();
+    private List<Order> orders = new ArrayList<>(); //list of orders to search thru
     
     /**
      * Creates new form Cart
@@ -42,6 +46,12 @@ public class Cart extends javax.swing.JFrame {
         inputFields.add(this.friesAmount);
         inputFields.add(this.shakeAmount);
         inputFields.add(this.dblChsAmount);
+        
+        items.add(new Item("Burger", burgerCost, 0));
+        items.add(new Item("ChsBurger", chsBurgerCost, 0));
+        items.add(new Item("Fries", friesCost, 0));
+        items.add(new Item("Shake", shakeCost, 0));
+        items.add(new Item("dblChsCost", dblChsCost, 0));
         
     }
 
@@ -263,11 +273,20 @@ public class Cart extends javax.swing.JFrame {
     }//GEN-LAST:event_friesAmountActionPerformed
 
     private void buttonCalculateTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCalculateTotalActionPerformed
-        double totalCost = 0; 
-        for (JTextField field : this.inputFields) {
-            if(!field.getText().isEmpty())
-                totalCost += Double.parseDouble(field.getText());
-        }
+        double totalCost = 0;
+        /*TODO check what goes to what?*/
+//        for (JTextField field : this.inputFields) {
+//            if(!field.getText().isEmpty())
+//                totalCost += Double.parseDouble(field.getText());
+//        }
+        totalCost = (
+                (Double.parseDouble(this.burgerAmount.getText())* this.burgerCost) +
+                (Double.parseDouble(this.chsBurgerAmount.getText()) * this.chsBurgerCost) +
+                (Double.parseDouble(this.friesAmount.getText()) * this.friesCost) +
+                (Double.parseDouble(this.shakeAmount.getText()) * this.shakeCost) +
+                (Double.parseDouble(this.dblChsAmount.getText()) * this.dblChsCost) 
+                );
+
         this.totalAmount.setText(Double.toString(totalCost));
     }//GEN-LAST:event_buttonCalculateTotalActionPerformed
 
@@ -283,8 +302,14 @@ public class Cart extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonResetActionPerformed
 
     private void buttonCheckoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCheckoutActionPerformed
+        items.get(0).setAmount(Integer.parseInt(this.burgerAmount.getText()));
+        items.get(1).setAmount(Integer.parseInt(this.chsBurgerAmount.getText()));
+        items.get(2).setAmount(Integer.parseInt(this.friesAmount.getText()));
+        items.get(3).setAmount(Integer.parseInt(this.shakeAmount.getText()));
+        items.get(4).setAmount(Integer.parseInt(this.dblChsAmount.getText()));
+            
         /*open the modify window with basic params.*/
-        Modify myModify = new Modify();
+        Modify myModify = new Modify(this.items);
         myModify.setVisible(true);
     }//GEN-LAST:event_buttonCheckoutActionPerformed
 
